@@ -5,6 +5,7 @@ import openpyxl
 import button
 import datetime
 from openpyxl.styles import PatternFill
+import os
 
 button = [20,60,10,350]
 
@@ -24,8 +25,16 @@ minS = date.minute
 sec = date.second
 # print('hr:', hour, 'mn:',  minS, 'sc:', sec)
 tm = 'Time = ' + str(hour) + '-' + str(minS) + '-' + str(sec)
-# wb = openpyxl.load_workbook('../attendance/Attendance_' + str(present_date) + '.xlsx')
-wb = openpyxl.Workbook()
+
+isFile = os.path.isfile('../Attendance/attendance_' + str(present_date) + '.xlsx')
+
+if (isFile):
+    wb = openpyxl.load_workbook('../Attendance/attendance_' + str(present_date) + '.xlsx')
+    print('Loading file...')
+else:
+    wb = openpyxl.Workbook()
+    print('Creating file...')
+
 sHeet = wb.active
 sHeet['A1'] = 'Attendance: ' + str(present_date)
 sheet = wb.create_sheet('Mysheet')
